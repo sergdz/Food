@@ -1,3 +1,4 @@
+import {getResource} from '../services/services';
 function cards() {
     class MenuCard {
         constructor(src, alt, title, descr, price, parentSelector, ...classes) {
@@ -9,11 +10,11 @@ function cards() {
             this.classes = classes;
             this.parent = document.querySelector(parentSelector);
             this.transfer = 27;
-            this.changeToUAH();
+            this.changeToUAH(); 
         }
 
         changeToUAH() {
-            this.price = this.price * this.transfer;
+            this.price = this.price * this.transfer; 
         }
 
         render() {
@@ -37,39 +38,15 @@ function cards() {
                 </div>
             `;
             this.parent.append(element);
-
         }
     }
 
-    const parentFlexContainer = document.querySelector('.menu__field')
-    const FlexContainer = parentFlexContainer.querySelector('.container')
-    FlexContainer.style.display = "flex";
-    FlexContainer.style.flexWrap = "wrap";
-
-    const getResource = async (url) => {
-        let res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`)
-        }
-
-        return await res.json();
-    };
-
-
-
     getResource('http://localhost:3000/menu')
         .then(data => {
-            data.forEach(({
-                img,
-                altimg,
-                title,
-                descr,
-                price
-            }) => {
+            data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
-            })
+            });
         });
 }
 
-module.exports = cards;
+export default cards;

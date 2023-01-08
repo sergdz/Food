@@ -109,4 +109,4 @@ getDynamicItem('#weight')
 getDynamicItem('#age')
 }
 
-module.exports = calc;
+export default calc;
